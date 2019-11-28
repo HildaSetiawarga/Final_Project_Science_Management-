@@ -125,7 +125,66 @@ for hub in range (total_hub) :
 #pprint.pprint(distance_hub)
 #print('\n\n')
 
-print(distance_hub[0])
+
+
+
+distance_hub2hub = []
+
+# From Hub to Hub
+for hub1 in range (total_hub) :
+    
+    
+    for hub2 in range (total_hub) :
+        long_hub1 = list_hub[hub1][2]
+        lat_hub1 = list_hub[hub1][1]
+        long_hub2 = list_hub[hub2][2]
+        lat_hub2 = list_hub[hub2][1]
+
+        distance_temp = distance(lat_hub1, lat_hub2, long_hub1, long_hub2)
+        temp = [distance_temp, list_hub[hub1][0], list_hub[hub2][0]]
+        #print(temp)
+        distance_hub2hub.append([distance_temp, list_hub[hub1][0], list_hub[hub2][0]])
+    
+
+#pprint.pprint(distance_hub2hub)
+#print('\n\n')
+
+
+#pprint.pprint(distance_hub)
+distance_h = []
+
+for hub in range(total_hub) :
+    if distance_hub[hub][1] == distance_hub[hub][2] :
+        distance_h.append([[distance_hub[hub][1]], distance_hub[hub][2], distance_hub[hub][0]])
+        
+    elif distance_hub[hub][1] != distance_hub[hub][2] :
+        for hub2 in range(len(distance_hub2hub)) :
+            if distance_hub[hub][1] == distance_hub2hub[hub2][1]:
+                if distance_hub[hub][2] == distance_hub2hub[hub2][2]:
+                    distance_temp = distance_hub[hub][0] + distance_hub2hub[hub2][0]
+                    #print(distance_temp)
+        
+                    distance_h.append([[distance_hub[hub][1], distance_hub2hub[hub2][2]], distance_hub[hub][2], distance_temp])
+
+#pprint.pprint(distance_h)
+
+exist_hub=[]
+for hub in  range (5):
+    exist_hub.append(distance_h[hub][0][0])
+
+#pprint.pprint(exist_hub)
+
+
+for hub in range(total_hub):
+    #for hub2 in range (len(exist_hub)):
+    if distance_hub[hub][1] not in exist_hub:
+        #print(distance_hub[hub][1])
+        distance_h.append([[distance_hub[hub][1]],distance_hub[hub][2],distance_hub[hub][0]])
+                
+                
+#pprint.pprint(distance_h)
+
+
 
 distance_total = []
 
@@ -133,94 +192,30 @@ distance_total = []
 for customer in range(len(distance_cust)) :
     #hub1 = distance_cust[customer][1]
 
-    for hub in range(len(distance_hub)) :
+    for hub in range(len(distance_h)) :
 
         #hub2 = distance_hub[hub][1]
-        if distance_cust[customer][1] == distance_hub[hub][1] :
-            distance_temp = distance_cust[customer][0] + distance_hub[hub][0]
-            distance_total.append([distance_temp, distance_cust[customer][2], distance_hub[hub][1], distance_hub[hub][2]])
+        if distance_cust[customer][1] == distance_h[hub][0][0] :
+            #print(customer,hub)
+            
+            distance_temp = distance_cust[customer][0] + distance_h[hub][2]
+            distance_total.append([distance_temp, distance_cust[customer][2], distance_h[hub][0], distance_h[hub][1]])
+            
     
 #pprint.pprint(distance_total)
 
 
+
+
+
+
+# final gabungan
 for customer in range(len(distance_total)) :
     print(
         '\nNo. : ', customer,
         '\nDistance : ', distance_total[customer][0],
-        'Customer ID : ', distance_total[customer][1],
-        'Hub : ', distance_total[customer][2],
-        'Warehouse : ', distance_total[customer][3]
+        '\nCustomer ID : ', distance_total[customer][1],
+        '\nHub : ', distance_total[customer][2],
+        '\nWarehouse : ', distance_total[customer][3]
     )
-
-angke = 0
-cawang = 0
-cakung = 0
-bekasi = 0
-bogor = 0
-karawaci = 0
-
-for customer in range(len(distance_total)):
-    if (distance_total[customer][2]) == "Angke" :
-        angke +=1
-    elif (distance_total[customer][2]) == "Cawang" :
-        cawang +=1
-    elif (distance_total[customer][2]) == "Cakung" :
-        cakung +=1
-    elif (distance_total[customer][2]) == "Bekasi" :
-        bekasi +=1
-    elif (distance_total[customer][2]) == "Bogor Citereup" :
-        bogor +=1
-    elif (distance_total[customer][2]) == "Karawaci" :
-        karawaci +=1
-
-print("\n")
-print("======================================================================")
-print("Hub Angke have ", angke, " items")
-print("Hub Cawang have ", cawang, " items")
-print("Hub Cakung have ", cakung, " items")
-print("Hub Bekasi have ", bekasi, " items")
-print("Hub Bogor have ", bogor, " items")
-print("Hub Karawaci have ", karawaci, " items")
-
-print("Total items in hub = ", angke+cawang+cakung+bekasi+bogor+karawaci)
-print("======================================================================")
-
-warecawang = 0
-warecakung = 0
-wareceper = 0
-warekara = 0
-
-for customer in range(len(distance_total)):
-    if (distance_total[customer][3]) == "Cawang" :
-        warecawang +=1
-    elif (distance_total[customer][3]) == "Cakung" :
-        warecakung +=1
-    elif (distance_total[customer][3]) == "Ceper" :
-        wareceper +=1
-    elif (distance_total[customer][3]) == "Karawaci" :
-        warekara +=1
-
-print("Warehouse Cawang have ", warecawang, " items")
-print("Warehouse Cakung have ", warecakung, " items")
-print("Warehouse Ceper have ", wareceper, " items")
-print("Warehouse Karawaci have ", warekara, " items")
-print("Total items in warehouse = ", warecakung+warecawang+wareceper+warekara)
-'''
-ft. ko anjer
-terimakasih
-'''
-            
-
-
-
-
-
-        
-
-
-
-    
-
-
-
 

@@ -120,7 +120,6 @@ class customer:
         self.custLong = custLong
         self.custLat = custLat
         self.nearestHub = self.nearestHub
-        self.nearestWarehouse = self.nearestWarehouse
         self.number = number
     def nearestHub(self):
         self.custToHub = list([computeDist(self.custLong, self.custLat, hubLongitude[i], hubLatitude[i]), hubID[i]] for i in range(0,len(hubID)))
@@ -179,14 +178,66 @@ for i in range(0,len(hubID)):
 graphArrSorted = sorted(grapharr, key = itemgetter(1))
 dist = []
 thisprint = ()
+totDist = 0
 #print(graphArrSorted)
 for i in range (0, len(customerID)):
     print(customersList[i].id, " -> ", customersList[i].nearestHub()[1], " -> ", end = ' ')
     dist.append(customersList[i].nearestHub()[0])
+    totDist += customersList[i].nearestHub()[0]
     for j in range (0, len(graphArrSorted)):
         if(customersList[i].nearestHub()[1].lower == graphArrSorted[j][0][0].lower):
             dist[i] += graphArrSorted[j][1]
+            totDist += graphArrSorted[j][1]
             print(graphArrSorted[j][0][1], " with distance ", dist[i])
             break
         else:
             pass
+        
+print (totDist, " or " , totDist*111.699, " km.")
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    # for j in range (0,len(hubID)):
+    #     kappa = False
+    #     if(str.strip(customersList[i].nearestHub()[1]) == str.strip(hubsList[j].nearestWarehouse()[1])):
+    #         dist[i] += hubsList[j].nearestWarehouse()[0]
+    #         kappa = True
+    #         thisprint1 = (hubsList[j].nearestWarehouse()[1], " with distance = ", dist[i])
+    #     elif(customersList[i].nearestHub != hubsList[j].nearestWarehouse()[1]):
+    #         for k in range(1, len(warehouseID)):
+    #             if(hubsList[j].nearestHub()[1][0] < hubsList[j].nearestWarehouse()[0]):
+    #                 if(hubsList[j].nearestHub()[k][1] == hubsList[j].nearestWarehouse()[1]):
+    #                     thisprint = hubsList[j].nearestHub()[k][1]
+    #             elif(hubsList[j].nearestHub()[1][0] >= hubsList[j].nearestWarehouse()[0]):
+    #                 thisprint = hubsList[k].nearestWarehouse()[1]
+    # if(kappa):
+    #     print(thisprint1)
+    # elif(kappa == False):
+    #     print(thisprint)
+        
+            
